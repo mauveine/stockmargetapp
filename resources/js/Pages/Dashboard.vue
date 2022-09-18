@@ -1,6 +1,6 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Welcome from '@/Components/Welcome.vue';
+import StockSearch from '@/Components/StockSearch.vue'
 </script>
 
 <template>
@@ -13,10 +13,16 @@ import Welcome from '@/Components/Welcome.vue';
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <Welcome />
+                <div class="overflow-hidden sm:rounded-lg">
+                    <StockSearch />
                 </div>
             </div>
         </div>
     </AppLayout>
 </template>
+
+<style lang="css">
+#nprogress .bar {
+    height: 5px !important;
+}
+</style>

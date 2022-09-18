@@ -14,8 +14,12 @@ class RapidAPIHistorical extends RapidAPIClient
         $allValues = $this->retrieveData($companySymbol);
         $startDateTime = strtotime($startDate);
         $endDateTime = strtotime($endDate);
-        return $allValues->filter(function ($item) use ($startDateTime, $endDateTime) {
+        $allValues = $allValues->filter(function ($item) use ($startDateTime, $endDateTime) {
             return $item['date'] >= $startDateTime && $item['date'] <= $endDateTime;
+        });
+        return $allValues->transform(function ($item) {
+            $item['date'] = date('Y-m-d', $item['date']);
+            return $item;
         });
     }
 }

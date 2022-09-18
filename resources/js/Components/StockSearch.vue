@@ -18,8 +18,6 @@ export default {}
             </div>
             <div>
                 <StockSearchResult />
-
-                <SectionBorder />
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm, usePage } from '@inertiajs/inertia-vue3';
 import ActionMessage from '@/Components/ActionMessage.vue';
 import FormSection from '@/Components/FormSection.vue';
 import InputError from '@/Components/InputError.vue';
@@ -10,15 +10,22 @@ import TextInput from '@/Components/TextInput.vue';
 import Datepicker from '@vuepic/vue-datepicker'
 import { format, compareDesc } from 'date-fns'
 
-let searchForm = useForm({
-    email: null,
-    startDate: null,
-    endDate: null,
-    companySymbol: null
+let props = defineProps({
+    filters: Object
 })
 
-let selectedStartDate = ref(new Date())
-let selectedEndDate = ref(new Date())
+console.log()
+let selectedStartDate = ref(new Date(usePage().props.value.filters.startDate ?? null))
+let selectedEndDate = ref(new Date(usePage().props.value.filters.endDate ?? null))
+
+let searchForm = useForm({
+    email: usePage().props.value.filters.email ?? null,
+    startDate: format(selectedStartDate.value, 'yyyy-MM-dd'),
+    endDate: format(selectedEndDate.value, 'yyyy-MM-dd'),
+    companySymbol: usePage().props.value.filters.companySymbol ?? null
+})
+
+
 
 const requestData = () => {
     let hasErrors = false

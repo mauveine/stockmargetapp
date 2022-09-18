@@ -13,7 +13,8 @@ class SearchController extends Controller
     public function index(StockSearchGet $request) {
         $props = [
             'companies' => \App\Models\NasdaqListedCompany::all()->toArray(),
-            'stockInfo' => []
+            'stockInfo' => [],
+            'filters' => $request->all()
         ];
         $validated = $request->validated();
 
@@ -25,8 +26,8 @@ class SearchController extends Controller
                     $request->input('companySymbol'),
                     $request->input('startDate'),
                     $request->input('endDate')
-                );
-            $props['stockInfo'] = $stockInfo->all();
+                )->sortBy('date');
+            $props['stockInfo'] = $stockInfo->values()->all();
         }
         return Inertia::render('Dashboard', $props);
     }
