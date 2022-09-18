@@ -1,8 +1,10 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { usePage } from '@inertiajs/inertia-vue3'
 
-let stockInfo = ref(usePage().props.value.stockInfo)
+const stockInfo = computed(() => {
+    return usePage().props.value.stockInfo
+})
 </script>
 <script>
 export default {}

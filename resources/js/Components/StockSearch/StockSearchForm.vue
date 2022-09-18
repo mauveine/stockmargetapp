@@ -11,12 +11,13 @@ import Datepicker from '@vuepic/vue-datepicker'
 import { format, compareDesc } from 'date-fns'
 
 let props = defineProps({
-    filters: Object
+    filters: Object,
+    stockInfo: Array
 })
 
 console.log()
-let selectedStartDate = ref(new Date(usePage().props.value.filters.startDate ?? null))
-let selectedEndDate = ref(new Date(usePage().props.value.filters.endDate ?? null))
+let selectedStartDate = ref(new Date(usePage().props.value.filters.startDate ))
+let selectedEndDate = ref(new Date(usePage().props.value.filters.endDate ))
 
 let searchForm = useForm({
     email: usePage().props.value.filters.email ?? null,

@@ -17,7 +17,7 @@ abstract class RapidAPIClient
         $this->key = config('nasdaq.api_key');
     }
 
-    public function retrieveData ($companySymbol) : Collection {
+    public function retrieveData ($companySymbol) : ?Collection {
 
         $client = new Client();
         try {
@@ -30,10 +30,11 @@ abstract class RapidAPIClient
                     'symbol' => $companySymbol
                 ]
             ]);
-            $body = json_decode($response->getBody(), true);
-            return collect($body['prices']);
+            $bodyContent = $response->getBody()->getContents();
+            $body = json_decode($bodyContent ?? '[]', true);
+            return collect($body ? $body['prices'] : []);
         } catch (\Throwable $e) {
-            return collect([]);
+            return null;
         }
     }
 }

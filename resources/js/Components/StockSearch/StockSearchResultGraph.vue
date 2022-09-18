@@ -15,7 +15,9 @@ import {
 
 ChartJS.register(Title, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement)
 
-let stockInfo = ref(usePage().props.value.stockInfo)
+const stockInfo = computed(() => {
+    return usePage().props.value.stockInfo
+})
 const chartData = computed(() => {
     let labels = stockInfo.value.map((item) => {
         return item.date

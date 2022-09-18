@@ -11,7 +11,7 @@ class RapidAPIHistorical extends RapidAPIClient
     }
 
     public function getDataBetweenDates($companySymbol, $startDate, $endDate) {
-        $allValues = $this->retrieveData($companySymbol);
+        $allValues = $this->retrieveData($companySymbol) ?? collect([]);
         $startDateTime = strtotime($startDate);
         $endDateTime = strtotime($endDate);
         $allValues = $allValues->filter(function ($item) use ($startDateTime, $endDateTime) {
