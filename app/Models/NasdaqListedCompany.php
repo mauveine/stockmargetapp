@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Laravel\Scout\Searchable;
 
 class NasdaqListedCompany extends Model
 {
     use HasFactory;
+    use Searchable;
 
     protected $hidden = [
         'id', 'created_at', 'updated_at'
@@ -37,5 +40,15 @@ class NasdaqListedCompany extends Model
             $this->{$convertedKey} = $value;
         }
         return $this;
+    }
+
+    public function toSearchableArray()
+    {
+        $searchableArray = Arr::only($this->toArray(), [
+            'id',
+            'symbol'
+        ]);
+
+        return $searchableArray;
     }
 }
